@@ -64,11 +64,17 @@ def save_test_cases_to_file(test_cases, filename="generated_test_cases.txt"):
             f.write("\n\n" + "-"*40 + "\n\n")
     logging.info(f"Test cases saved to {filename}")
 
+def validate_test_cases(test_cases):
+    validated = []
+    for case in test_cases:
+        is_valid = bool(case['test_case'])
+        validated.append({**case, 'is_valid': is_valid, 'validation_notes': 'Valid' if is_valid else 'Invalid'})
+    return validated
+
 if __name__ == "__main__":
     try:
         stories = fetch_user_stories()
         test_cases = generate_test_cases(stories)
-        from agents.crewai_agents import validate_test_cases
         validated_cases = validate_test_cases(test_cases)
         output = {
             "user_stories": stories,
