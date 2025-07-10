@@ -1,0 +1,5 @@
+requests
+openai
+pyyaml
+python-dotenv
+crewai

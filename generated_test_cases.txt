@@ -1,0 +1,46 @@
+Story ID: SCRUM-6
+Sure! Here are detailed step-by-step test cases for the user story "User Login."
+
+### Test Case 1: Successful Login with Valid Credentials
+
+**Test Case ID:** TC001  
+**Objective:** To verify that a user can successfully log in with valid credentials.  
+**Preconditions:** User has a registered account.  
+
+#### Steps:
+1. Navigate to the login page of the application.
+2. Enter a valid email address in the "Email" field.
+3. Enter the correct password in the "Password" field.
+4. Click the "Login" button.
+5. Observe the response.
+
+#### Expected Result:
+- The user should be redirected to the dashboard or home page.
+- A welcome message should be displayed indicating that the user is logged in.
+
+---
+
+### Test Case 2: Login Attempt with Invalid Email
+
+**Test Case ID:** TC002  
+**Objective:** To verify that the user cannot log in with an invalid email address.  
+
+#### Steps:
+1. Navigate to the login page of the application.
+2. Enter an invalid email address in the "Email" field (e.g., test@invalid).
+3. Enter a correct password in the "Password" field.
+4. Click the "Login" button.
+5. Observe the response.
+
+#### Expected Result:
+- An error message should display stating that the email address is not valid.
+- The user should remain on the login page.
+
+---
+
+### Test Case 3: Login Attempt with Invalid Password
+
+**Test
+
+----------------------------------------
+
