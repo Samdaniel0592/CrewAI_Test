@@ -1,44 +1,42 @@
 Story ID: SCRUM-6
-Certainly! Below are the step-by-step test cases for the user story "User Login". 
-
 ### User Story: User Login
-**As a** user,  
-**I want** to log in to my account,  
-**So that** I can access my personalized dashboard.
 
-### Test Case 1: Successful User Login
+**As a** registered user, **I want** to log in to my account **so that** I can access my personalized dashboard.
 
-**Test Case ID**: TC001  
-**Test Case Name**: Successful User Login  
-**Preconditions**: User has a registered account with valid credentials.
+#### Test Case 1: Successful Login with Valid Credentials
 
-#### Steps:
-1. Open the application or website.
-2. Click on the "Login" button.
-3. Enter a valid username in the "Username" field.
-4. Enter a valid password in the "Password" field.
-5. Click on the "Submit" button.
-6. Observe the system response.
+**Preconditions:** The user has an active account with valid credentials.
 
-#### Expected Result:
+**Steps:**
+1. Navigate to the login page of the application.
+2. Enter a valid username in the "Username" field.
+3. Enter the correct password in the "Password" field.
+4. Click on the "Login" button.
+5. Wait for the application to process the login request.
+6. Observe the resulting page.
+
+**Expected Result:** 
 - User is redirected to their personalized dashboard.
-- A welcome message is displayed (e.g., "Welcome back, [Username]!").
+- A success message appears (e.g., "Welcome, [User's Name]!").
+- The user's account information is displayed correctly.
 
 ---
 
-### Test Case 2: User Login with Invalid Credentials
+#### Test Case 2: Unsuccessful Login with Invalid Credentials
 
-**Test Case ID**: TC002  
-**Test Case Name**: User Login with Invalid Credentials  
-**Preconditions**: The user is not logged in.
+**Preconditions:** The user is on the login page.
 
-#### Steps:
-1. Open the application or website.
-2. Click on the "Login" button.
-3. Enter an invalid username in the "Username" field.
-4. Enter an invalid password in the "Password" field.
-5. Click on the "Submit" button.
-6. Observe
+**Steps:**
+1. Navigate to the login page of the application.
+2. Enter an invalid username in the "Username" field.
+3. Enter an incorrect password in the "Password" field.
+4. Click on the "Login" button.
+5. Wait for the application to process the login request.
+6. Observe the resulting message.
+
+**Expected Result:** 
+- An error message is displayed (e.g., "Invalid username or password. Please try again.").
+- The user remains on the
 
 ----------------------------------------
 
