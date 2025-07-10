@@ -53,7 +53,7 @@ def generate_test_cases(stories):
         )
         test_case = response.choices[0].message.content.strip()
         test_cases.append({'story_id': story['id'], 'test_case': test_case})
-    logging.info(f'Generated test cases: {test_cases}')
+    #logging.info(f'Generated test cases: {test_cases}')
     return test_cases
 
 def save_test_cases_to_file(test_cases, filename="generated_test_cases.txt"):

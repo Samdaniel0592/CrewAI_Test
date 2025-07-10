@@ -1,44 +1,44 @@
 Story ID: SCRUM-6
-Certainly! Below is a set of step-by-step test cases for the user story "User Login". Each test case includes a title, description, preconditions, steps, expected results, and postconditions.
+Certainly! Below are the step-by-step test cases for the user story "User Login". 
+
+### User Story: User Login
+**As a** user,  
+**I want** to log in to my account,  
+**So that** I can access my personalized dashboard.
 
 ### Test Case 1: Successful User Login
 
-**Title**: Successful User Login
+**Test Case ID**: TC001  
+**Test Case Name**: Successful User Login  
+**Preconditions**: User has a registered account with valid credentials.
 
-**Description**: Validate that a user can log in successfully with valid credentials.
+#### Steps:
+1. Open the application or website.
+2. Click on the "Login" button.
+3. Enter a valid username in the "Username" field.
+4. Enter a valid password in the "Password" field.
+5. Click on the "Submit" button.
+6. Observe the system response.
 
-**Preconditions**: 
-- User has a valid email and password.
-- User is on the login page.
-
-**Steps**:
-1. Navigate to the login page.
-2. Enter the valid email in the email input field.
-3. Enter the valid password in the password input field.
-4. Click the "Login" button.
-
-**Expected Result**: The user is directed to the dashboard/homepage, and a welcome message is displayed.
-
-**Postconditions**: User session is created, and the user is logged in.
+#### Expected Result:
+- User is redirected to their personalized dashboard.
+- A welcome message is displayed (e.g., "Welcome back, [Username]!").
 
 ---
 
-### Test Case 2: Unsuccessful User Login - Invalid Email
+### Test Case 2: User Login with Invalid Credentials
 
-**Title**: Unsuccessful User Login with Invalid Email
+**Test Case ID**: TC002  
+**Test Case Name**: User Login with Invalid Credentials  
+**Preconditions**: The user is not logged in.
 
-**Description**: Validate that a user cannot log in with an invalid email address.
-
-**Preconditions**: 
-- User is on the login page.
-
-**Steps**:
-1. Navigate to the login page.
-2. Enter an invalid email (e.g., "invalidemail@domain.com") in the email input field.
-3. Enter the valid password in the password input field.
-4. Click the "Login" button.
-
-**Expected Result**
+#### Steps:
+1. Open the application or website.
+2. Click on the "Login" button.
+3. Enter an invalid username in the "Username" field.
+4. Enter an invalid password in the "Password" field.
+5. Click on the "Submit" button.
+6. Observe
 
 ----------------------------------------
 
