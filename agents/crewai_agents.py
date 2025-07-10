@@ -8,6 +8,7 @@ from crewai import Agent, Task, Crew
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 
+# CrewAI agent function: Fetch user stories from JIRA
 def fetch_user_stories():
     logging.info('Fetching user stories from JIRA...')
     JIRA_EMAIL = os.getenv("JIRA_EMAIL")
@@ -31,6 +32,8 @@ def fetch_user_stories():
     logging.info(f'Fetched user stories: {stories}')
     return stories
 
+# CrewAI agent function: Generate test cases using OpenAI
+
 def generate_test_cases(stories):
     logging.info('Generating test cases using OpenAI...')
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -38,39 +41,42 @@ def generate_test_cases(stories):
     test_cases = []
     for story in stories:
         prompt = f"Generate step-by-step test cases for the following user story: {story['summary']}"
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "system", "content": "You are a QA test case generator."},
                       {"role": "user", "content": prompt}],
             max_tokens=300
         )
-        test_case = response['choices'][0]['message']['content'].strip()
+        test_case = response.choices[0].message.content.strip()
         test_cases.append({'story_id': story['id'], 'test_case': test_case})
     logging.info(f'Generated test cases: {test_cases}')
     return test_cases
 
+# CrewAI agent function: Validate test cases
+
 def validate_test_cases(test_cases):
     logging.info('Validating test cases for coverage and quality...')
     validated = [
-        {**case, 'is_valid': True, 'validation_notes': 'Valid'} for case in test_cases
+        {**case, 'is_valid': bool(case['test_case']), 'validation_notes': 'Valid' if case['test_case'] else 'Invalid'} for case in test_cases
     ]
     logging.info(f'Validated test cases: {validated}')
     return validated
 
-def generate_playwright_scripts(validated_cases):
-    logging.info('Generating Playwright MCP scripts...')
-    scripts = [
-        {'story_id': case['story_id'], 'script': f"// Playwright script for {case['story_id']} (mocked)"} for case in validated_cases if case['is_valid']
-    ]
-    logging.info(f'Generated Playwright scripts: {scripts}')
-    return scripts
+# Save test cases to a text file
+def save_test_cases_to_file(test_cases, filename="generated_test_cases.txt"):
+    with open(filename, "w", encoding="utf-8") as f:
+        for case in test_cases:
+            f.write(f"Story ID: {case['story_id']}\n")
+            f.write(case['test_case'])
+            f.write("\n\n" + "-"*40 + "\n\n")
+    logging.info(f"Test cases saved to {filename}")
 
 # Define CrewAI agents
 orchestrator_agent = Agent(
     name="OrchestratorAgent",
     role="Coordinates the process",
-    goal="Orchestrate the test automation pipeline.",
-    backstory="An experienced automation orchestrator, skilled at coordinating multi-agent pipelines for software quality assurance."
+    goal="Orchestrate the test automation tasks.",
+    backstory="An experienced automation orchestrator, skilled at coordinating multi-agent tasks for software quality assurance."
 )
 
 testcase_generator_agent = Agent(
@@ -85,13 +91,6 @@ testcase_validator_agent = Agent(
     role="Validates test cases",
     goal="Validate generated test cases for coverage and quality.",
     backstory="A meticulous QA expert, ensuring all test cases meet coverage and quality standards."
-)
-
-copilot_agent = Agent(
-    name="CopilotAgent",
-    role="Generates Playwright scripts",
-    goal="Create Playwright MCP scripts from validated test cases.",
-    backstory="A coding automation assistant, adept at translating test cases into robust Playwright scripts."
 )
 
 # Define CrewAI tasks
@@ -116,25 +115,16 @@ validate_testcases_task = Task(
     func=lambda: validate_test_cases(generate_test_cases(fetch_user_stories()))
 )
 
-generate_playwright_task = Task(
-    description="Generate Playwright MCP scripts from validated test cases.",
-    agent=copilot_agent,
-    expected_output="Playwright MCP automation scripts for each validated test case.",
-    func=lambda: generate_playwright_scripts(validate_test_cases(generate_test_cases(fetch_user_stories())))
-)
-
-# Define the Crew pipeline
+# Define the CrewAI task runner (not called pipeline)
 crew = Crew(
     agents=[
         orchestrator_agent,
         testcase_generator_agent,
-        testcase_validator_agent,
-        copilot_agent
+        testcase_validator_agent
     ],
     tasks=[
         fetch_stories_task,
         generate_testcases_task,
-        validate_testcases_task,
-        generate_playwright_task
+        validate_testcases_task
     ]
 )
